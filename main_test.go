@@ -41,15 +41,15 @@ func TestAlgorithm(t *testing.T) {
 	}{
 		{
 			Domain: "alpha",
-			Output: "[alpha]",
+			Output: "{ \"Queue\": \"[alpha]\" }",
 		},
 		{
 			Domain: "omega",
-			Output: "[alfa, omega]",
+			Output: "{ \"Queue\": \"[alfa, omega]\" }",
 		},
 		{
 			Domain: "alpha",
-			Output: "[alpha, alpha, omega]",
+			Output: "{ \"Queue\": \"[alpha, alpha, omega]\" }",
 		},
 		{
 			Domain: "",

@@ -47,11 +47,11 @@ func prioritize(domain string, queueObject *repository.Queue) (int, *repository.
 	priority := 0
 	messageObj := &repository.Queue{}
 
-	if queueObject.Priority <= 5 && queueObject.Weigth <= 5 {
+	if queueObject.Priority < 5 && queueObject.Weigth < 5 {
 		priority = lowPriority
-	} else if (queueObject.Priority > 5 && queueObject.Weigth <= 5) || (queueObject.Priority <= 5 && queueObject.Weigth > 5) {
+	} else if (queueObject.Priority >= 5 && queueObject.Weigth < 5) || (queueObject.Priority < 5 && queueObject.Weigth >= 5) {
 		priority = mediumPriority
-	} else if queueObject.Priority > 5 && queueObject.Weigth > 5 {
+	} else if queueObject.Priority >= 5 && queueObject.Weigth >= 5 {
 		priority = highPriority
 	}
 	messageObj.Priority = queueObject.Priority
