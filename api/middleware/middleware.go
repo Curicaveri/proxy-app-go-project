@@ -39,8 +39,17 @@ func ProxyMiddleware(c iris.Context) {
 			enqueue(priority, messageObj)
 		}
 	}
-	c.JSON(iris.Map{"Queue": q})
-	c.Next()
+	result := "[ "
+	for _, obj := range q {
+		if obj.Domain == "" {
+			continue
+		}
+		result = result + obj.Domain + ", "
+	}
+	size := len(result)
+	result = result[:size-2]
+	result = result + " ]"
+	c.JSON(iris.Map{"status": 200, "result": result})
 }
 
 func prioritize(domain string, queueObject *repository.Queue) (int, *repository.Queue) {
@@ -54,6 +63,7 @@ func prioritize(domain string, queueObject *repository.Queue) (int, *repository.
 	} else if queueObject.Priority >= 5 && queueObject.Weigth >= 5 {
 		priority = highPriority
 	}
+	messageObj.Domain = domain
 	messageObj.Priority = queueObject.Priority
 	messageObj.Weigth = queueObject.Weigth
 
